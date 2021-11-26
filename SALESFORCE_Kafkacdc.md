@@ -16,41 +16,41 @@
 
 # **Contents**
 
- [**Solution Architecture**	 PAGEREF _Toc88497729 \h 3](#_Toc88497729)
+ [**Solution Architecture**](#solution)
 
-[**Solution Design/Approach**	 PAGEREF _Toc88497730 \h 3](#_Toc88497730)
+[**Solution Design/Approach**	 ](#design)
 
-[**Setting up Salesforce for Streaming Events:**	 PAGEREF _Toc88497731 \h 4](#_Toc88497731)
+[**Setting up Salesforce for Streaming Events:**	](#salesforce)
 
-[·	Create Connected App:	 PAGEREF _Toc88497732 \h 4](#_Toc88497732)
+[·	Create Connected App:	](#connectapp)
 
-[·	Acquire Consumer Key and Secret Key:	 PAGEREF _Toc88497733 \h 6](#_Toc88497733)
+[·	Acquire Consumer Key and Secret Key:	 ](#key)
 
-[·	Acquire refresh token:	 PAGEREF _Toc88497734 \h 7](#_Toc88497734)
+[·	Acquire refresh token:	](#token)
 
-[·	Enable Salesforce for CDC:	 PAGEREF _Toc88497735 \h 9](#_Toc88497735)
+[·	Enable Salesforce for CDC:	](#cdc)
 
-[·	Enable Salesforce for PushTopic:	 PAGEREF _Toc88497736 \h 9](#_Toc88497736)
+[·	Enable Salesforce for PushTopic:	](#push)
 
-[**Application Development:**	 PAGEREF _Toc88497737 \h 11](#_Toc88497737)
+[**Application Development:**	 ](#developement)
 
-[·	Software Requirements:	 PAGEREF _Toc88497738 \h 11](#_Toc88497738)
+[·	Software Requirements:	 ](#requirement)
 
-[·	Installation Details:	 PAGEREF _Toc88497739 \h 12](#_Toc88497739)
+[·	Installation Details:	 ](#install)
 
-[·	Start Gitbash	 PAGEREF _Toc88497740 \h 13](#_Toc88497740)
+[·	Start Gitbash	 ](#gitbash)
 
-[·	Start Zookeeper	 PAGEREF _Toc88497741 \h 14](#_Toc88497741)
+[·	Start Zookeeper	](#zoo-keeper)
 
-[·	Start Kafka Server	 PAGEREF _Toc88497742 \h 15](#_Toc88497742)
+[·	Start Kafka Server	 ](#kafka)
 
-[·	Create Topics	 PAGEREF _Toc88497743 \h 15](#_Toc88497743)
+[·	Create Topics	 ](#topic)
 
-[·	Application Configuration Details:	 PAGEREF _Toc88497744 \h 16](#_Toc88497744)
+[·	Application Configuration Details:	 ](#config)
 
-[·	Application Development Details:	 PAGEREF _Toc88497745 \h 21](#_Toc88497745)
+[·	Application Development Details:	 ](#detail)
 
-[**Application Deployment and Testing:**	 PAGEREF _Toc88497746 \h 21](#_Toc88497746)
+[**Application Deployment and Testing:**	 ](#deploy)
 
 
 
@@ -71,22 +71,22 @@ SALESFORCE - CDC & KAFKA CONNECTOR
 This solution is primarily intended for Citibank, where Citi bank requires all the changes related to users -any addition/modification or role changes etc should be reflected in real time to consuming applications.
 
 To Achieve this, application capitalizing salesforce event bus mechanism to capture the CDC Data.
-# **Solution Architecture**
+# **Solution Architecture** <div id='solution'/>
 
 
 
 
 ![Description automatically generated](references/Aspose.Words.bf9418ef-2196-447f-adbf-3a9a9357279e.001.png)
 
-# **Solution Design/Approach**
+# **Solution Design/Approach** <div id='design'/>
 
 To capture CDC data and storing or redirecting them to HDFS/Databases (Mysql) or Kafka Topics, application (Python) needs to capitalize Salesforce Streaming Events service for capturing real time changing data via SF event bus.
 
 Following steps to be executed across platforms
 
-# **Setting up Salesforce for Streaming Events:**
+# **Setting up Salesforce for Streaming Events:** <div id='salesforce'/>
 ##
-- ## Create Connected App:
+- ## Create Connected App:   <div id='connectapp'/>
 \- To create a connected Salesforce app, follow these steps:
 
 \-  Log in to Salesforce with your developer account
@@ -139,7 +139,7 @@ Following steps to be executed across platforms
 
 ![Manage Salesforce connected app](references/Aspose.Words.bf9418ef-2196-447f-adbf-3a9a9357279e.006.png)
 ##
-- ## Acquire Consumer Key and Secret Key:
+- ## Acquire Consumer Key and Secret Key: <div id='key'/>
 
 - Go to the **API (Enable OAuth Settings)** section, and note down the **Consumer Key** and **Consumer Secret**.
 
@@ -147,7 +147,7 @@ Following steps to be executed across platforms
 
 - Get Your Consumer Key and Client Secrete and Save it in Notepad.
 ##
-- ## Acquire refresh token:
+- ## Acquire refresh token: <div id='token'/>
 - Log in to Salesforce using your favourite browser, then enter the following request Url in a new tab to get the code. <CONSUMER\_KEY> should be replaced with the obtained Consumer Key in the above step. <YOUR\_INSTANCE> should be replaced with your instance name, in my case it is **ap15**.
 
 https://**<YOUR\_INSTANCE>**.salesforce.com/services/oauth2/authorize?response\_type=code&client\_id=**<CONSUMER\_KEY>**&redirect\_uri=https://login.salesforce.com/
@@ -188,7 +188,7 @@ curl -X POST [https://**<YOUR_INSTANCE>**.salesforce.com/services/oauth2/token?c
 
 
 
-- ## Enable Salesforce for CDC:
+- ## Enable Salesforce for CDC: <div id='cdc'/>
 
 - Go in your Salesforce Dev Org. Click on set up.
 - Then search Change Data Capture in Quick Find Box.
@@ -197,7 +197,7 @@ curl -X POST [https://**<YOUR_INSTANCE>**.salesforce.com/services/oauth2/token?c
 - In Our case We are selecting Users.
 
 ![](references/Aspose.Words.bf9418ef-2196-447f-adbf-3a9a9357279e.011.png)
-- ## Enable Salesforce for PushTopic:
+- ## Enable Salesforce for PushTopic: <div id='push'/>
 
 - The pushTopic record contains a SOQL query. Event notifications are generated for updates that match the query. Alternatively, you can also use Workbench to create a PushTopic. In this sample we using Salesforce Developer Console to create a Push Topic.
 
@@ -235,9 +235,9 @@ insert pushTopic;
 
 - We are essentially creating a SOQL query with a few extra parameters that watch for changes in a specified object. If the Push Topic is executed successfully then Salesforce is ready to post notification to WSO2 Salesforce Inbound Endpoint, if any changes are made in the Account object in Salesforce. This is because the below Push Topic has been created for Salesforce's Account object.
 
-# **Application Development:**
+# **Application Development:** <div id='developement'/>
 
-- ## Software Requirements:
+- ## Software Requirements:  <div id='requirement'/>
 
 
 |**Requirements**|**Version**|**Libraries**|
@@ -252,7 +252,7 @@ insert pushTopic;
 ||||
 
 
-- ## Installation Details:
+- ## Installation Details: <div id='install'/>
 
 Step 1. Install Python and Required Libraries:
 
@@ -275,7 +275,7 @@ Step 3. Install Kafka
 ![](references/Aspose.Words.bf9418ef-2196-447f-adbf-3a9a9357279e.016.png)
 
 After installing kafka Follow these steps to start kafka server:
-- ## Start Gitbash
+- ## Start Gitbash <div id='gitbash'/>
 
 - Go in Kafka Folder and Right click on any white space. Then click on git bash.
 - Minimise First git bash and again follow the first step to open one more git bash.
@@ -289,7 +289,7 @@ The easiest way to install Kafka is to download binaries and run it. Since it’
 
 Kafka is available in two different flavours: One by [Apache foundation](https://kafka.apache.org/downloads) and other by [Confluent](https://www.confluent.io/about/) as a [package](https://www.confluent.io/download/). For this tutorial, I will go with the one provided by Apache foundation. By the way, Confluent was founded by the [original developers](https://www.confluent.io/about/) of Kafka.
 ##
-- ## Start Zookeeper
+- ## Start Zookeeper <div id='zoo-keeper'/>
 Kafka relies on Zookeeper, in order to make it run we will have to run Zookeeper first. Write this Command in First git bash.
 
 bin/zookeeper-server-start.sh config/zookeeper.properties
@@ -300,7 +300,7 @@ it will display lots of text on the screen, if see the following it means it’s
 [2018-06-10 06:36:15,044] INFO binding to port 0.0.0.0/0.0.0.0:2181 (org.apache.zookeeper.server.NIOServerCnxnFactory)
 
 ##
-- ## Start Kafka Server
+- ## Start Kafka Server <div id='kafka'/>
 Next, we have to start Kafka broker server in the second git bash:
 
 bin/kafka-server-start.sh config/server.properties
@@ -310,7 +310,7 @@ And if you see the following text on the console, it means it’s up.
 2018-06-10 06:38:44,477] INFO Kafka commitId: fdcf75ea326b8e07 (org.apache.kafka.common.utils.AppInfoParser)
 [2018-06-10 06:38:44,478] INFO [KafkaServer id=0] started (kafka.server.KafkaServer)
 ##
-- ## Create Topics
+- ## Create Topics <div id='topic'/>
 Messages are published in topics. Use this command to create a new topic.
 
 ➜ kafka\_2.11-1.1.0 bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
@@ -327,7 +327,7 @@ Step 4. Clone or Download the Python Code.
 - Unzip that file on desktop
 
 ![](references/Aspose.Words.bf9418ef-2196-447f-adbf-3a9a9357279e.015.png)
-- ## Application Configuration Details:
+- ## Application Configuration Details: <div id='config'/>
 
 Clone or Download the Python Code.
 
@@ -371,7 +371,7 @@ Clone or Download the Python Code.
 - You also can use SFTP and FTP file protocol services if you have requirement of it. Just set up the file according to your requirement.
 - In our case Our source is “Salesforce” and Destination is “Mysql” or any other database and cloud platform.
 - You can adjust source and target as per your requirement. This is the complete code for the integration and data migration between any cloud and desktop platform.
-- ## Application Development Details:
+- ## Application Development Details: <div id='detail'/>
 
 
 |**File name**|**File type**|**Working**|
@@ -385,7 +385,7 @@ Clone or Download the Python Code.
 |Utilities|py|This is a utility tool file for Database connectivity, Log setup and application configuration setup.|
 ||||
 
-# **Application Deployment and Testing:**
+# **Application Deployment and Testing:** <div id='deploy'/>
 
 **Now, we are ready with our configuration and the set up.**
 
