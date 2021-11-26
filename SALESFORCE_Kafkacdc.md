@@ -1,5 +1,5 @@
-﻿# Sales-force Streaming Events and Kafka Integration
-**
+﻿# Salesforce Streaming Events and Kafka Integration
+
 # **Document History**
 
 |**Date**|**Version**|**Created By**|**Reviewed By**|
@@ -60,6 +60,12 @@
 
 
 
+
+
+
+
+
+
 SALESFORCE - CDC & KAFKA CONNECTOR
 
 This solution is primarily intended for Citibank, where Citi bank requires all the changes related to users -any addition/modification or role changes etc should be reflected in real time to consuming applications.
@@ -68,9 +74,9 @@ To Achieve this, application capitalizing salesforce event bus mechanism to capt
 # **Solution Architecture**
 
 
-![Diagram] (references/Aspose.Words.bf9418ef-2196-447f-adbf-3a9a9357279e.001.png)
 
-Description automatically generated](references/Aspose.Words.bf9418ef-2196-447f-adbf-3a9a9357279e.001.png)
+
+![Description automatically generated](references/Aspose.Words.bf9418ef-2196-447f-adbf-3a9a9357279e.001.png)
 
 # **Solution Design/Approach**
 
