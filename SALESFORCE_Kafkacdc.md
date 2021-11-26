@@ -66,7 +66,7 @@
 
 
 
-SALESFORCE - CDC & KAFKA CONNECTOR
+# **SALESFORCE - CDC & KAFKA CONNECTOR**
 
 This solution is primarily intended for Citibank, where Citi bank requires all the changes related to users -any addition/modification or role changes etc should be reflected in real time to consuming applications.
 
