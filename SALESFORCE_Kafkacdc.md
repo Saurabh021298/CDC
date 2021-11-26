@@ -16,7 +16,7 @@
 
 # **Contents**
 
-` `TOC \o "1-3" \h \z \u [**Solution Architecture**	 PAGEREF _Toc88497729 \h 3](#_Toc88497729)
+ [**Solution Architecture**	 PAGEREF _Toc88497729 \h 3](#_Toc88497729)
 
 [**Solution Design/Approach**	 PAGEREF _Toc88497730 \h 3](#_Toc88497730)
 
